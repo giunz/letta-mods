@@ -1,6 +1,6 @@
 {
   "name": "@letta-ai/jev-auto",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Approve low-impact Letta Code tool calls with Jev.",
   "author": "Sarah Wooders",
   "license": "Apache-2.0",
