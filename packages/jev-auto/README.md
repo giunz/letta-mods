@@ -4,7 +4,7 @@ Approve low-impact tool calls automatically; ask a person about risky or unclear
 
 ## Install
 
-Requires Letta Code 0.32.12 or newer and your own funded OpenRouter API key.
+Requires Letta Code 0.32.12 or newer and your own funded TypeSafe API key.
 
 ```sh
 # After publication:
@@ -14,7 +14,7 @@ letta install npm:@letta-ai/jev-auto
 letta install ./packages/jev-auto
 ```
 
-Provide `OPENROUTER_API_KEY` in the environment of the process running Letta Code
+Provide `TYPESAFE_API_KEY` in the environment of the process running Letta Code
 (or its Desktop listener), then start/restart that process. Do not paste the key
 into a conversation or the mod source. `/reload` loads the installed mod into an
 existing session; a restart is needed if its environment changed.
@@ -49,7 +49,7 @@ not just a mod. Use `/auto off` to disable the overlay.
 
 ## Behavior
 
-- Calls `typesafe/jev-1.13` through OpenRouter's Decisions API once per reviewed
+- Calls `jev-latest` through TypeSafe's System One API (`/v1/systemone`) once per reviewed
   invocation. No additional model agent or npm runtime dependencies.
 - Jev chooses `clear` or `caution` from the actual tool name and arguments.
   Clear allows; caution, invalid responses, or API failures require human
@@ -65,11 +65,11 @@ not just a mod. Use `/auto off` to disable the overlay.
 
 ## Privacy and limits
 
-**Every reviewed tool's name and complete arguments are sent to OpenRouter and
-TypeSafe.** This can include commands, file content, source code or credentials
+**Every reviewed tool's name and complete arguments are sent to TypeSafe.**
+This can include commands, file content, source code or credentials
 embedded in arguments. No conversation history or file content outside arguments
 is sent. Enable only where that transfer is acceptable. The mod does not request
-or promise zero data retention. OpenRouter bills your key separately.
+or promise zero data retention. TypeSafe bills your key separately.
 
 This is an experimental risk classifier, **not a security sandbox or an
 authorization check**. It does not know user intent, inspect files/scripts a
@@ -94,7 +94,7 @@ unrestricted execution.
 
 ```sh
 bun run check
-# With OPENROUTER_API_KEY set; makes real, billed classifier requests:
+# With TYPESAFE_API_KEY set; makes real, billed classifier requests:
 bun run test:live
 # With LETTA_API_KEY as well; runs an isolated agent-free CLI conversation:
 bun run test:cli

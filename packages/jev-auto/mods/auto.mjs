@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 
-const ENDPOINT = "https://openrouter.ai/api/alpha/decisions";
-const MODEL = "typesafe/jev-1.13";
+const ENDPOINT = "https://api.typesafe.ai/v1/systemone";
+const MODEL = "jev-latest";
 const MAX_INPUT_SIZE = 64 * 1024;
 const MAX_PENDING = 512;
 const REVIEW_LIFETIME_MS = 60 * 60 * 1000;
@@ -57,8 +57,8 @@ function actionFor(event) {
 }
 
 async function review(action, signal) {
-  const key = process.env.OPENROUTER_API_KEY;
-  if (!key) return { decision: "alwaysAsk", reason: "Auto: OPENROUTER_API_KEY is missing." };
+  const key = process.env.TYPESAFE_API_KEY;
+  if (!key) return { decision: "alwaysAsk", reason: "Auto: TYPESAFE_API_KEY is missing." };
   try {
     const response = await fetch(ENDPOINT, {
       method: "POST",
@@ -145,12 +145,12 @@ export default function activate(letta) {
         return output("Auto is off. Your normal permission mode applies.");
       }
       if (command !== "on") return output("Usage: /auto on|off|status");
-      if (!process.env.OPENROUTER_API_KEY) {
-        return output("Set OPENROUTER_API_KEY in the Letta Code process environment, restart, then run /auto on.");
+      if (!process.env.TYPESAFE_API_KEY) {
+        return output("Set TYPESAFE_API_KEY in the Letta Code process environment, restart, then run /auto on.");
       }
       if (!sessions.has(id)) sessions.set(id, { controller: new AbortController(), calls: new Map() });
       showModePanel(id, ctx.agent.id);
-      return output("Auto mode on. Tool arguments are sent to OpenRouter / TypeSafe. /auto off to exit.");
+      return output("Auto mode on. Tool arguments are sent to TypeSafe. /auto off to exit.");
     },
   }));
 

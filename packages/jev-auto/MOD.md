@@ -14,7 +14,8 @@ arguments are never persisted to disk. Disposal aborts reviews, clears state,
 and removes registrations. There are no startup network calls or host permission
 setting changes. The mod stays inactive until enabled by the user.
 
-Approval uses OpenRouter's Decisions API. Execution consumes the exact-call
+Approval uses TypeSafe's System One API (`https://api.typesafe.ai/v1/systemone`,
+model `jev-latest`) directly. Execution consumes the exact-call
 review without another provider call, preserving the host's human-approval
 handoff. Returning `alwaysAsk`, not `ask`, prevents ordinary PermissionRequest
 auto-allow hooks from bypassing a caution result.
